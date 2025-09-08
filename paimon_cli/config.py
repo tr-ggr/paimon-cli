@@ -9,7 +9,7 @@ class Config:
     
     def __init__(self):
         self.api_key = os.getenv('GEMINI_API_KEY')
-        self.prompt_file = 'prompt.json'
+        self.prompt_file = './prompt.json'
         self.model_name = 'gemini-2.5-flash'
     
     @property

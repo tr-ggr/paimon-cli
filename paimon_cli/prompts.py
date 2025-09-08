@@ -6,7 +6,7 @@ from .ui import PaimonUI
 class PromptManager:
     """Manages prompt loading and configuration"""
     
-    def __init__(self, prompt_file='prompt.json'):
+    def __init__(self, prompt_file='./prompt.json'):
         self.prompt_file = prompt_file
         self._prompts = None
     
