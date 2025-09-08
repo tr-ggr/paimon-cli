@@ -1,5 +1,7 @@
 import pathlib
+import requests
 from google import genai
+from google.genai import types
 from typing import Optional
 from .config import Config
 from .prompts import PromptManager
@@ -40,8 +42,8 @@ class PaimonAI:
         )
         return response.text
     
-    def chat_with_image(self, image_path: str, prompt: str = "Caption this image", prompt_mode: str = "fast") -> str:
-        """Analyze an image using AI"""
+    def chat_with_image(self, image_path: str, prompt: str = "Analyze this image for OSINT purposes", prompt_mode: str = "fast") -> str:
+        """Analyze a local image file using AI"""
         system_prompt = self.prompt_manager.get_system_prompt(prompt_mode)
         
         PaimonUI.animate_dots("Paimon is looking at the image")
@@ -55,6 +57,42 @@ class PaimonAI:
         )
         return response.text
     
+    def chat_with_url(self, image_url: str, prompt: str = "Analyze this image for OSINT purposes", prompt_mode: str = "fast") -> str:
+        """Analyze an image from URL using AI"""
+        system_prompt = self.prompt_manager.get_system_prompt(prompt_mode)
+        
+        PaimonUI.animate_dots("Paimon is downloading and analyzing the image")
+        
+        # Download image from URL
+        response_img = requests.get(image_url, timeout=30)
+        response_img.raise_for_status()  # Raises an HTTPError for bad responses
+        
+        # Determine MIME type based on URL or content
+        mime_type = "image/jpeg"  # default
+        if image_url.lower().endswith(('.png', '.PNG')):
+            mime_type = "image/png"
+        elif image_url.lower().endswith(('.gif', '.GIF')):
+            mime_type = "image/gif"
+        elif image_url.lower().endswith(('.webp', '.WEBP')):
+            mime_type = "image/webp"
+        
+        # Create image part from bytes
+        image_part = types.Part.from_bytes(
+            data=response_img.content,
+            mime_type=mime_type
+        )
+        
+        response = self.client.models.generate_content(
+            model=self.config.model_name,
+            contents=[f"{system_prompt}\n\nUser: {prompt}", image_part]
+        )
+        return response.text
+    
+    @staticmethod
+    def is_url(path: str) -> bool:
+        """Check if the input is a URL"""
+        return path.startswith(('http://', 'https://'))
+    
     @staticmethod
     def is_image_file(file_path: str) -> bool:
         """Check if file is an image based on extension"""
@@ -62,8 +100,14 @@ class PaimonAI:
         return pathlib.Path(file_path).suffix.lower() in image_extensions
     
     def analyze_file(self, file_path: str, prompt: str, mode: str) -> str:
-        """Analyze file (image or regular file) based on its type"""
-        if self.is_image_file(file_path):
+        """Analyze file (image or URL) based on its type"""
+        if self.is_url(file_path):
+            return self.chat_with_url(file_path, prompt, mode)
+        elif self.is_image_file(file_path):
             return self.chat_with_image(file_path, prompt, mode)
         else:
-            return self.chat_with_file(file_path, prompt, mode)
+            raise ValueError(f"Unsupported file type. Only image files and URLs are supported. Got: {file_path}")
+    
+    def analyze_image_url(self, image_url: str, prompt: str, mode: str) -> str:
+        """Analyze an image from URL - wrapper for chat_with_url"""
+        return self.chat_with_url(image_url, prompt, mode)

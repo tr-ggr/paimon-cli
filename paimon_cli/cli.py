@@ -14,12 +14,13 @@ class PaimonCLI:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog=f"""
 {Colors.CYAN}✨ Examples:{Colors.END}
-  paimon -t "How do I solve a buffer overflow?"
-  paimon --file challenge.py -p "Find the vulnerability"
-  paimon -m comprehensive --file binary.exe
+  paimon -t "How do I analyze OSINT data?"
+  paimon --url "https://example.com/image.jpg" -p "What can you find in this image?"
+  paimon --file image.png -p "Analyze this image for metadata"
+  paimon -m comprehensive --url "https://site.com/photo.jpg"
   paimon  # Interactive mode with Paimon!
 
-{Colors.PINK}Remember: Paimon is here to help you become the best CTF player!{Colors.END}
+{Colors.PINK}Remember: Paimon is here to help you with OSINT investigations!{Colors.END}
             """
         )
         
@@ -29,15 +30,20 @@ class PaimonCLI:
                            default='f',
                            help='Analysis mode: f/fast for quick help, c/comprehensive for detailed analysis')
         
-        # File arguments
+        # URL arguments (replacing file arguments)
+        parser.add_argument('--url', 
+                           action='append',
+                           help='Image URL to analyze for OSINT (can be used multiple times)')
+        
+        # File arguments (keeping for local image files)
         parser.add_argument('--file', 
                            action='append',
-                           help='File to analyze (can be used multiple times)')
+                           help='Local image file to analyze (can be used multiple times)')
         
         # Prompt argument
         parser.add_argument('-p', '--prompt',
-                           default='Analyze this for CTF challenges',
-                           help='Custom prompt for file analysis')
+                           default='Analyze this image for OSINT purposes',
+                           help='Custom prompt for image analysis')
         
         # Text input argument
         parser.add_argument('-t', '--text',

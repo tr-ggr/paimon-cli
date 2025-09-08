@@ -2,3 +2,4 @@
 venv/
 paimon_cli.egg*
 __pycache__/
+build

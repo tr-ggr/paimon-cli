@@ -1,4 +1,5 @@
 import os
+import requests  # Add this import
 from typing import List, Optional
 from .config import Config
 from .ui import PaimonUI, Colors
@@ -61,6 +62,36 @@ class PaimonCore:
             
             self.ui.print_separator()
     
+    def handle_url_image_analysis(self, urls: List[str], prompt: str, mode: str):
+        """Handle URL image analysis requests"""
+        mode_display = self.ui.get_mode_display(mode)
+        
+        for i, image_url in enumerate(urls):
+            self.ui.print_separator(f"Analyzing Image URL - {mode_display}")
+            self.ui.print_paimon_message(f"Downloading and analyzing image from URL! ({mode} mode)", "analyzing")
+            self.ui.print_paimon_message(f"URL: {image_url}", "info")
+            print()
+            
+            try:
+                result = self.ai_client.analyze_image_url(image_url, prompt, mode)
+                self.ui.print_analysis_result(f"Paimon's OSINT Analysis", result)
+                
+                if i < len(urls) - 1:  # Not the last URL
+                    print()
+                    
+            except requests.exceptions.RequestException as e:
+                self.ui.print_paimon_message(
+                    f"Oops! I couldn't download the image from {image_url}: {str(e)}", 
+                    "error"
+                )
+            except Exception as e:
+                self.ui.print_paimon_message(
+                    f"Oops! Something went wrong analyzing the image: {str(e)}", 
+                    "error"
+                )
+            
+            self.ui.print_separator()
+    
     def handle_interactive_mode(self, mode: str):
         """Handle interactive chat mode"""
         self.ui.print_separator("Interactive Mode")
@@ -87,7 +118,7 @@ class PaimonCore:
                 break
             except Exception as e:
                 self.ui.print_paimon_message(f"Uh oh! Something went wrong: {str(e)}", "error")
-    
+        
     def run(self):
         """Main application entry point"""
         # Clear screen and show banner
@@ -102,12 +133,16 @@ class PaimonCore:
             if args.text:
                 self.handle_text_input(args.text, mode)
             
+            # Handle URL inputs
+            if args.url:
+                self.handle_url_image_analysis(args.url, args.prompt, mode)
+            
             # Handle file inputs
             if args.file:
                 self.handle_file_analysis(args.file, args.prompt, mode)
             
             # Interactive mode if no arguments provided
-            if not args.text and not args.file:
+            if not args.text and not args.url and not args.file:
                 self.handle_interactive_mode(mode)
                 
         except KeyboardInterrupt:
