@@ -7,7 +7,7 @@ A modular, extensible command-line tool designed specifically for Capture The Fl
 ### Prerequisites
 
 - Python 3.7+
-- Google API key (for Gemini AI)
+- Gemini API key (for Gemini AI)
 
 ### Installation
 
@@ -23,7 +23,7 @@ A modular, extensible command-line tool designed specifically for Capture The Fl
 4. **Create a `.env` file** in the project root:
 
    ```bash
-   echo "GOOGLE_API_KEY=your_api_key_here" > .env
+   echo "GEMINI_API_KEY=your_api_key_here" > .env
    ```
 
    Replace `your_api_key_here` with your actual Google API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
@@ -112,7 +112,7 @@ Options:
   -t, --text TEXT          Direct text input for CTF assistance
   -f, --file PATH         Challenge file or evidence to analyze
   -p, --prompt TEXT       Custom prompt for specific analysis
-  -m, --mode MODE         Analysis mode (quick/comprehensive/security/crypto/forensics/web)
+  -m, --mode MODE         Analysis mode (fast/comprehensive)
   -h, --help              Show help message
 ```
 

@@ -16,5 +16,5 @@ class Config:
     def google_api_key(self):
         """Get Google API key from environment"""
         if not self.api_key:
-            raise ValueError("GOOGLE_API_KEY not found in environment variables")
+            raise ValueError("GEMINI_API_KEY not found in environment variables")
         return self.api_key
