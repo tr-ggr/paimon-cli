@@ -115,3 +115,11 @@ class PaimonCore:
         except Exception as e:
             self.ui.print_paimon_message(f"Oh no! A fatal error occurred: {str(e)}", "error")
             self.ui.print_paimon_message("Don't worry, even the best adventurers face challenges!", "info")
+    
+def main():
+    """Entry point for the CLI application"""
+    app = PaimonCore()
+    app.run()
+
+if __name__ == "__main__":
+    main()

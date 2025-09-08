@@ -8,7 +8,7 @@ class Config:
     """Configuration class for Paimon CLI"""
     
     def __init__(self):
-        self.api_key = os.getenv('GOOGLE_API_KEY')
+        self.api_key = os.getenv('GEMINI_API_KEY')
         self.prompt_file = 'prompt.json'
         self.model_name = 'gemini-2.5-flash'
     
