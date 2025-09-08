@@ -1,6 +1,6 @@
-# Paimon CLI - AI-Powered Security Analysis Tool
+# Paimon CLI - Your Magical CTF & Digital Forensics Companion
 
-A modular, extensible command-line tool for AI-powered text analysis, file analysis, and security research assistance.
+A modular, extensible command-line tool designed specifically for Capture The Flag (CTF) competitions and digital forensics investigations. Paimon leverages AI-powered analysis to help security researchers, CTF players, and forensics analysts quickly understand files, analyze artifacts, and solve challenging puzzles.
 
 ## Quick Start
 
@@ -18,7 +18,7 @@ A modular, extensible command-line tool for AI-powered text analysis, file analy
    ```
 3. **Install dependencies**:
    ```bash
-   pip install python-dotenv google-generativeai
+   pip install -e .
    ```
 4. **Create a `.env` file** in the project root:
 
@@ -30,127 +30,141 @@ A modular, extensible command-line tool for AI-powered text analysis, file analy
 
 5. **Run the application**:
    ```bash
-   python main.py
+   paimon-cli
    ```
 
 ## Usage Guide
 
-### 🚀 Interactive Mode (Recommended for Beginners)
+### 🚀 Interactive Mode (Perfect for CTF Learning)
 
-Start a conversation with the AI assistant:
+Start a conversation with your magical CTF assistant:
 
 ```bash
-python main.py
+paimon-cli
 ```
 
-- Type your questions and press Enter
+- Ask about CTF techniques and strategies
+- Get hints for challenge categories
 - Type `exit` or `quit` to leave
-- Perfect for learning and exploration
+- Perfect for learning forensics and CTF methodologies
 
-### 💬 Quick Text Analysis
+### 💬 Quick Challenge Analysis
 
-Get instant answers without entering interactive mode:
-
-```bash
-# Security question
-python main.py -t "How do SQL injection attacks work?"
-
-# Programming help
-python main.py -t "Explain buffer overflow vulnerabilities"
-
-# General assistance
-python main.py --text "What are the OWASP Top 10?"
-```
-
-### 📁 File Analysis
-
-Analyze code files, documents, or binaries:
+Get instant help with CTF challenges without entering interactive mode:
 
 ```bash
-# Analyze a Python file
-python main.py --file script.py
+# Cryptography challenges
+paimon-cli -t "I found this hash: 5d41402abc4b2a76b9719d911017c592"
 
-# Analyze with custom prompt
-python main.py --file malware.exe -p "Find potential security issues"
+# Web exploitation
+paimon-cli -t "How do I find SQL injection in this login form?"
 
-# Analyze image files
-python main.py --file screenshot.png -p "Describe what you see"
+# Binary exploitation
+paimon-cli --text "Explain buffer overflow exploitation techniques"
 ```
 
-### 🔍 Analysis Modes
+### 📁 Forensics File Analysis
 
-Choose different analysis approaches:
+Analyze CTF artifacts, evidence files, and challenge materials:
 
 ```bash
-# Quick analysis (default)
-python main.py --file code.c -m quick
+# Analyze a suspicious binary
+paimon-cli --file challenge.exe
 
-# Comprehensive analysis
-python main.py --file binary.exe -m comprehensive
+# Examine forensics evidence with context
+paimon-cli --file evidence.pcap -p "Find network anomalies and suspicious traffic"
 
-# Security-focused analysis
-python main.py --file webapp.py -m security
+# Analyze steganography challenges
+paimon-cli --file hidden.png -p "Look for hidden data or steganographic content"
 ```
 
-### 📋 Command Reference
+### 🔍 CTF Analysis Modes
+
+Choose different analysis approaches for various challenge types:
+
+```bash
+# Quick analysis for initial reconnaissance
+paimon-cli --file mystery.bin -m quick
+
+# Comprehensive analysis for complex forensics
+paimon-cli --file memory.dump -m comprehensive
+
+# Security-focused analysis for exploitation challenges
+paimon-cli --file webapp.php -m security
+
+# Cryptography-focused analysis
+paimon-cli --file cipher.txt -m crypto
+
+# Forensics-focused analysis
+paimon-cli --file evidence.img -m forensics
+```
+
+### 📋 CTF Command Reference
 
 ```bash
 # Show help
-python main.py --help
+paimon-cli --help
 
-# All options
-python main.py [OPTIONS]
+# All options for CTF analysis
+paimon-cli [OPTIONS]
 
 Options:
-  -t, --text TEXT          Direct text input for analysis
-  -f, --file PATH         File to analyze
-  -p, --prompt TEXT       Custom prompt for analysis
-  -m, --mode MODE         Analysis mode (quick/comprehensive/security)
+  -t, --text TEXT          Direct text input for CTF assistance
+  -f, --file PATH         Challenge file or evidence to analyze
+  -p, --prompt TEXT       Custom prompt for specific analysis
+  -m, --mode MODE         Analysis mode (quick/comprehensive/security/crypto/forensics/web)
   -h, --help              Show help message
 ```
 
-### 💡 Usage Examples
+### 💡 CTF Usage Examples
 
-**Learning Security Concepts:**
+**Learning CTF Categories:**
 
 ```bash
-python main.py -t "Explain cross-site scripting with examples"
+paimon-cli -t "Explain common CTF categories and what to expect"
 ```
 
-**Code Review:**
+**Forensics Investigation:**
 
 ```bash
-python main.py --file vulnerable.php -p "Find security vulnerabilities"
+paimon-cli --file disk.img -p "Perform digital forensics analysis to find hidden files"
 ```
 
-**Malware Analysis:**
+**Cryptography Challenges:**
 
 ```bash
-python main.py --file suspicious.exe -m comprehensive
+paimon-cli --file encrypted.txt -m crypto
 ```
 
-**Interactive Learning:**
+**Reverse Engineering:**
 
 ```bash
-python main.py
-# Then ask: "What is penetration testing?"
+paimon-cli --file binary.elf -p "Help me understand this binary's functionality"
+```
+
+**Interactive CTF Learning:**
+
+```bash
+paimon-cli
+# Then ask: "What tools should I use for memory forensics?"
 ```
 
 ## Directory Structure
 
 ```
 paimon-cli/
-├── main.py                 # Entry point
-├── paimon/                 # Main package
+├── paimon_cli/            # Main package
 │   ├── __init__.py        # Package initialization
 │   ├── config.py          # Configuration management
 │   ├── ui.py              # User interface components
-│   ├── prompts.py         # Prompt management
-│   ├── ai_client.py       # AI integration
+│   ├── prompts.py         # CTF-focused prompt management
+│   ├── ai_client.py       # AI integration for forensics
 │   ├── cli.py             # Command line interface
-│   └── core.py            # Core application logic
-├── prompt.json            # Prompt configuration file
+│   └── core.py            # Core CTF assistant logic
+├── main.py                # Entry point
+├── prompt.json            # CTF prompt configuration file
 ├── .env                   # Environment variables
+├── pyproject.toml         # Package configuration
 └── requirements.txt       # Dependencies
 ```
 
@@ -158,151 +172,178 @@ paimon-cli/
 
 ### 1. `config.py` - Configuration Management
 
-- **Purpose**: Manages environment variables and application configuration
+- **Purpose**: Manages environment variables and CTF tool configuration
 - **Key Features**:
   - Loads `.env` file
   - Validates API keys
-  - Centralizes configuration constants
+  - CTF-specific settings
 
-### 2. `ui.py` - User Interface Components
+### 2. `ui.py` - CTF-Themed User Interface
 
-- **Purpose**: Handles all visual output and terminal formatting
+- **Purpose**: Handles visual output with CTF-friendly styling
 - **Key Features**:
-  - Terminal colors and styling
-  - Banner display
-  - Loading animations
-  - Message formatting
-  - User input handling
+  - Terminal colors and CTF-themed styling
+  - Challenge analysis formatting
+  - Loading animations for file processing
+  - Forensics report formatting
 
-### 3. `prompts.py` - Prompt Management System
+### 3. `prompts.py` - CTF Prompt Management System
 
-- **Purpose**: Manages AI prompts and system messages
+- **Purpose**: Manages AI prompts specialized for CTF and forensics
 - **Key Features**:
-  - Loads prompts from JSON
-  - Creates default prompts if missing
-  - Supports multiple prompt modes
-  - Extensible prompt system
+  - CTF category-specific prompts
+  - Forensics investigation templates
+  - Challenge hint generation
+  - Extensible for new CTF categories
 
-### 4. `ai_client.py` - AI Integration Layer
+### 4. `ai_client.py` - CTF Analysis Engine
 
-- **Purpose**: Handles all AI communication and file processing
+- **Purpose**: Handles AI-powered analysis of CTF artifacts
 - **Key Features**:
-  - Text chat functionality
-  - File analysis (regular files)
-  - Image analysis
-  - File type detection
-  - Unified analysis interface
+  - CTF challenge consultation
+  - Forensics artifact analysis
+  - Binary and malware examination
+  - Evidence correlation
+  - Steganography detection hints
 
-### 5. `cli.py` - Command Line Interface
+### 5. `cli.py` - CTF Command Interface
 
-- **Purpose**: Parses and validates command line arguments
+- **Purpose**: Parses CTF-specific command line arguments
 - **Key Features**:
-  - Argument parsing
-  - Help text generation
-  - Input validation
-  - Mode normalization
+  - CTF mode selection
+  - Challenge file handling
+  - Forensics workflow support
+  - Competition-friendly options
 
-### 6. `core.py` - Core Application Logic
+### 6. `core.py` - CTF Assistant Core
 
-- **Purpose**: Orchestrates all components and handles main workflows
+- **Purpose**: Orchestrates CTF challenge solving workflows
 - **Key Features**:
-  - Application initialization
-  - Request routing
-  - Error handling
-  - Interactive mode management
+  - Challenge categorization
+  - Multi-stage analysis
+  - CTF methodology guidance
+  - Competition timer integration
 
-### 7. `main.py` - Application Entry Point
+## Advanced CTF Usage
 
-- **Purpose**: Simple entry point that starts the application
-- **Key Features**:
-  - Minimal bootstrap code
-  - Clean separation of concerns
-
-## Advanced Usage
-
-### Importing as Library
+### CTF Team Collaboration
 
 ```python
-from paimon import PaimonCore, PaimonAI, Config
+from paimon_cli import PaimonCore, PaimonAI, Config
 
-# Use as library
+# Use as CTF analysis library
 config = Config()
 ai = PaimonAI(config)
-result = ai.chat_with_text("Explain XSS attacks")
+result = ai.analyze_challenge("challenge.bin", "forensics")
 print(result)
 ```
 
-### Custom Prompts
+### Custom CTF Prompts
 
-Create your own `prompt.json` to customize AI behavior:
+Create your own `prompt.json` for specific CTF competitions:
 
 ```json
 {
-  "quick": "Provide a brief analysis of the following...",
-  "comprehensive": "Perform a detailed security analysis...",
-  "security": "Focus on security vulnerabilities and risks..."
+  "crypto": "Analyze this cryptographic challenge, look for common cipher patterns...",
+  "forensics": "Perform digital forensics analysis focusing on timeline and artifacts...",
+  "web": "Examine for web vulnerabilities including OWASP top 10...",
+  "rev": "Reverse engineer this binary, explain functionality and find flags..."
 }
 ```
 
-## Troubleshooting
+## CTF Categories Supported
 
-### Common Issues
+### 🔐 Cryptography
 
-**"API key not found" error:**
+- Hash identification and cracking hints
+- Cipher analysis and pattern recognition
+- Key recovery guidance
+- Cryptographic protocol analysis
 
-- Ensure your `.env` file exists and contains `GOOGLE_API_KEY=your_key`
-- Verify your API key is valid at [Google AI Studio](https://makersuite.google.com/)
+### 🔍 Digital Forensics
 
-**"Module not found" errors:**
+- Memory dump analysis
+- Disk image investigation
+- Network packet analysis
+- Timeline reconstruction
 
-- Run `pip install python-dotenv google-generativeai`
-- Ensure you're in the correct directory
+### 🌐 Web Exploitation
 
-**File analysis not working:**
+- Vulnerability identification
+- Source code review
+- SQL injection guidance
+- XSS and CSRF analysis
 
-- Check file permissions
-- Ensure the file path is correct
-- Some file types may not be supported
+### ⚙️ Reverse Engineering
 
-## Benefits of This Structure
+- Binary analysis assistance
+- Disassembly explanation
+- Malware behavior analysis
+- Obfuscation techniques
 
-### 1. **Separation of Concerns**
+### 🔧 Binary Exploitation
 
-- Each module has a single, well-defined responsibility
-- Easy to understand and maintain
-- Changes in one area don't affect others
+- Buffer overflow guidance
+- ROP chain assistance
+- Memory corruption analysis
+- Exploit development hints
 
-### 2. **Testability**
+## Troubleshooting CTF Challenges
 
-- Each component can be unit tested independently
-- Mock objects can easily replace dependencies
-- Clear interfaces between components
+### Common CTF Issues
 
-### 3. **Extensibility**
+**"Can't identify file type" error:**
 
-- Easy to add new prompt modes
-- Simple to extend UI functionality
-- New AI models can be integrated easily
+- Use `file` command first: `file challenge.bin`
+- Try different analysis modes
+- Check for steganography or encoding
 
-### 4. **Maintainability**
+**"AI not understanding CTF context":**
 
-- Bug fixes are localized to specific modules
-- Code is easier to read and understand
-- Documentation is more straightforward
+- Be specific about the challenge category
+- Provide context about the competition
+- Use CTF-specific terminology
 
-### 5. **Reusability**
+**"Analysis taking too long":**
 
-- Components can be reused in other projects
-- Clear APIs make integration simple
-- Modular design supports different use cases
+- Try quick mode first: `-m quick`
+- Break large files into smaller chunks
+- Use specific prompts for targeted analysis
 
-## Contributing
+## Benefits for CTF Players
 
-Feel free to contribute by:
+### 1. **Challenge Recognition**
 
-- Adding new analysis modes
-- Improving error handling
-- Extending file type support
-- Enhancing the UI/UX
+- Quickly identify challenge categories
+- Understand common CTF patterns
+- Get hints without spoiling solutions
 
-This refactored structure makes your Paimon CLI much more professional, maintainable, and extensible!
+### 2. **Learning Acceleration**
+
+- Learn forensics techniques through practice
+- Understand exploitation methodologies
+- Build CTF-specific knowledge base
+
+### 3. **Team Collaboration**
+
+- Share analysis results with teammates
+- Document investigation processes
+- Build repeatable forensics workflows
+
+### 4. **Competition Efficiency**
+
+- Faster initial analysis of challenges
+- Automated pattern recognition
+- Time-saving file examination
+
+## Contributing to Paimon
+
+Help make Paimon the ultimate CTF companion by:
+
+- Adding new CTF category prompts
+- Improving forensics analysis capabilities
+- Extending challenge recognition patterns
+- Contributing CTF-specific tools integration
+- Sharing successful challenge solutions
+
+This magical CTF companion grows stronger with every challenge solved! 🎭✨
